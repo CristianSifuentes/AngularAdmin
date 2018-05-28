@@ -11,6 +11,11 @@ import { HeaderComponent } from './shared/header/header.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { BreadcrumbsComponent } from './shared/breadcrumbs/breadcrumbs.component';
 
+//Rutas
+import { APP_ROUTES } from './app.routes';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +29,8 @@ import { BreadcrumbsComponent } from './shared/breadcrumbs/breadcrumbs.component
     BreadcrumbsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    APP_ROUTES
   ],
   providers: [],
   bootstrap: [AppComponent]
