@@ -11,6 +11,10 @@
                               <div class="progress">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"  [attr.areaValuenow]="progreso" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"  [style.width] = "progreso + '%'"></div>
                               </div>
+                              <br />
+                              <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"  [attr.areaValuenow]="progreso" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"  [style.width] = "progreso + '%'"></div>
+                                  </div>
                             </div>
                         </div>
                     </div>
@@ -23,13 +27,7 @@
     <div class="col-6">
         <div class="card">
             <div class="card-body">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <button class="btn btn-primary" type="button" (click)="cambiar(-5)"><i class="mdi mdi-minus"></i></button>
-                      <button class="btn btn-primary" type="button" (click)="cambiar(+5)"><i class="mdi mdi-plus"></i></button>
-                    </div>
-                    <input type="text" name="progreso" [(ngModel)]="progreso"  class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
-                  </div>
+                 <app-incrementador></app-incrementador>
             </div>
         </div>
     </div>
@@ -37,8 +35,8 @@
     <div class="col-6">
         <div class="card">
             <div class="card-body">
-                texto 2
-            </div>
+                    <app-incrementador></app-incrementador>
+                </div>
         </div>
     </div>
 
