@@ -24,14 +24,6 @@ import { PagesModule } from './pages/pages.module';
   declarations: [
     AppComponent,
     LoginComponent,
-    NopagefoundComponent,
-    /*DashboardComponent,
-    ProgressComponent,
-    Graficas1Component,*/
-    HeaderComponent,
-    SidebarComponent,
-    BreadcrumbsComponent,
-    PagesComponent,
     RegisterComponent
   ],
   imports: [
