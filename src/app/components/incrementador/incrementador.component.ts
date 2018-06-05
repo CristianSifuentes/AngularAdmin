@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class IncrementadorComponent implements OnInit {
 
-  @Input() leyenda: string = 'Leyenda';
+  @Input('nombre') leyenda: string = 'Leyenda';
   @Input() progreso: number = 50;
   constructor() { 
 
