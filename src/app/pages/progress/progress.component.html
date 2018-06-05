@@ -9,11 +9,11 @@
                             
 
                               <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"  [attr.areaValuenow]="progreso" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"  [style.width] = "progreso + '%'"></div>
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"  [attr.areaValuenow]="progreso1" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"  [style.width] = "progreso1 + '%'"></div>
                               </div>
                               <br />
                               <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"  [attr.areaValuenow]="progreso" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"  [style.width] = "progreso + '%'"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"  [attr.areaValuenow]="progreso2" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"  [style.width] = "progreso2 + '%'"></div>
                                   </div>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
     <div class="col-6">
         <div class="card">
             <div class="card-body">
-                 <app-incrementador nombre="progres azul" [progreso]=20></app-incrementador>
+                 <app-incrementador  (cambioValor)="progreso1 = $event"  nombre="progres azul" [progreso]="progreso1"></app-incrementador>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
     <div class="col-6">
         <div class="card">
             <div class="card-body">
-                    <app-incrementador nombre="progres verde" progreso="20"></app-incrementador>
+                    <app-incrementador  (cambioValor)="progreso2 = $event" nombre="progres verde" [progreso]="progreso2"></app-incrementador>
                 </div>
         </div>
     </div>
