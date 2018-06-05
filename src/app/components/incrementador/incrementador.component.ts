@@ -11,11 +11,13 @@ export class IncrementadorComponent implements OnInit {
   @Input() progreso: number = 50;
   constructor() { 
 
-    console.log('Leyenda ', this.leyenda);
+    //console.log('Leyenda ', this.leyenda);
+    console.log('Progreso ', this.progreso);
   }
 
   ngOnInit() {
-    console.log('Leyenda ', this.leyenda);
+   // console.log('Leyenda ', this.leyenda);
+   console.log('Progreso ', this.progreso);
 
   }
 
