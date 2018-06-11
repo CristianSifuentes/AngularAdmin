@@ -14,12 +14,25 @@ export class IncrementadorComponent implements OnInit {
   constructor() { 
 
     //console.log('Leyenda ', this.leyenda);
-    console.log('Progreso ', this.progreso);
+    //console.log('Progreso ', this.progreso);
   }
 
   ngOnInit() {
    // console.log('Leyenda ', this.leyenda);
-   console.log('Progreso ', this.progreso);
+   //console.log('Progreso ', this.progreso);
+
+  }
+
+  onChange(newValue: number){
+     console.log(newValue);
+     if(newValue >= 100){
+      this.progreso = 100;
+     }else if(newValue <= 0){
+      this.progreso = 0;
+     } else {
+       this.progreso = newValue;
+     }
+     this.cambioValor.emit(this.progreso);
 
   }
 
