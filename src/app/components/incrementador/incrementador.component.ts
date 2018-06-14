@@ -42,6 +42,7 @@ export class IncrementadorComponent implements OnInit {
      //elemtHTML.value = Number(this.progreso);
      this.txtProgress.nativeElement.value = this.progreso;
      this.cambioValor.emit(this.progreso);
+     this.txtProgress.nativeElement.focus();
 
   }
 
