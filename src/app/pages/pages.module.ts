@@ -11,6 +11,7 @@ import { PAGES_ROUTES } from "./pages.routes";
 
 //temporal
 import { IncrementadorComponent } from "../components/incrementador/incrementador.component";
+import { GraficoDonaComponent } from "../components/grafico-dona/grafico-dona.component";
 
 
 import { ChartsModule } from 'ng2-charts';
@@ -22,12 +23,14 @@ import { ChartsModule } from 'ng2-charts';
     DashboardComponent,
     ProgressComponent,
     Graficas1Component,
-    IncrementadorComponent
+    IncrementadorComponent,
+    GraficoDonaComponent
    ],
    exports: [
     DashboardComponent,
     ProgressComponent,
-    Graficas1Component
+    Graficas1Component,
+    GraficoDonaComponent
    ],
    imports: [
     SharedModule,
