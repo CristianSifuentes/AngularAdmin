@@ -21,6 +21,9 @@ import { RegisterComponent } from './login/register.component';
 //Modulos
 import { PagesModule } from './pages/pages.module';
 
+//sevicios 
+import { SettingService } from './services/setting.service';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +37,7 @@ import { PagesModule } from './pages/pages.module';
     PagesModule,
     FormsModule
   ],
-  providers: [],
+  providers: [SettingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
