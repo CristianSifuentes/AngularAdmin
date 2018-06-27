@@ -11,5 +11,8 @@ export class AccountSettingComponent implements OnInit {
 
   ngOnInit() {
   }
+  cambiarColor(tema: string){
+    console.log(tema);
+  }
 
 }
