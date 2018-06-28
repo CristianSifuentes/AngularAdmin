@@ -9,7 +9,8 @@ import { SettingService } from './services/setting.service';
 export class AppComponent {
  
   constructor(public _ajustes: SettingService){
-
+     
+     
   }
 
 
