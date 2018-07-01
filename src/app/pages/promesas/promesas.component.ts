@@ -20,7 +20,7 @@ export class PromesasComponent implements OnInit {
  
   contar3segndos(): Promise<boolean>{
 
-    let promesa = new Promise( (resolve, reject) => {
+     return  new Promise( (resolve, reject) => {
       let contador = 0;  
        let intervalo = setInterval(() => {
         contador+=1;
@@ -33,8 +33,6 @@ export class PromesasComponent implements OnInit {
       
        }, 1000);
     });
-
-    return promesa;
 
   }
 }
