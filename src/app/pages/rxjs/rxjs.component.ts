@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { retry } from 'rxjs/operators';
+import { Observable, Subscriber } from 'rxjs';
+import { retry, map } from 'rxjs/operators';
 
 
 @Component({
@@ -15,9 +15,7 @@ export class RxjsComponent implements OnInit {
   ) { 
      
 
-     this.regresaObservable().pipe(
-       retry(2)
-     ).subscribe(
+     this.regresaObservable().subscribe(
        numero => console.log('Subs', numero),
        error => console.log('Error en el obs', error),
        () => console.log('El observador termino!')
@@ -28,24 +26,33 @@ export class RxjsComponent implements OnInit {
   ngOnInit() {
   }
 
-  regresaObservable(): Observable<number> {
-    return  new Observable( observer => {
+  regresaObservable(): Observable<any> {
+    return  new Observable( (observer: Subscriber<any>) => {
 
       let contador = 0;
       let intervalo = setInterval(() => {
             contador +=1;
-             observer.next(  contador );
+
+            const salida = {
+              valor: contador
+            }
+
+
+
+             observer.next(  salida );
 
               if(contador === 3){
                   clearInterval(intervalo);
                   observer.complete();
               }
-              if(contador === 2){
+              /*if(contador === 2){
                 clearInterval(intervalo);
                 observer.error('Auxilio');
-              }
+              }*/
       }, 1000);
-     });
+     }).pipe(  
+        map( resp => resp.valor )
+     );
 
   }
 
