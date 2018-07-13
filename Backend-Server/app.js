@@ -7,6 +7,11 @@ var app = express();
 
 
 
+//Rutas
+app.get('/', (req, res, next) => {
+     res.status(200).json({ ok: true, mensje: 'Petición realizada con ´´exito' });
+});
+
 //escuchar peticiones
 app.listen(3000, () => {
 
