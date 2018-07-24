@@ -8,3 +8,7 @@ ng g c pages/accountSetting --m='pages/pages.module.ts' --spec=false is
 
 ng g m services/service --spec=false
 -crea un modulo en una carpeta en especifico sin archivo de pruebas.
+
+# Ayuda mongod
+
+https://www.youtube.com/watch?v=2KMQdqDk9e8
