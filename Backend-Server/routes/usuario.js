@@ -1,10 +1,11 @@
 //Requires
 var express = require('express');
+var bcrypt = require('bcryptjs');
 
 //inicializar variables
 var app = express();
 
-var Usuario = require('../models/usuario')
+var Usuario = require('../models/usuario');
 
 // =============================================
 // Obtener todos los usuarios
@@ -38,7 +39,7 @@ app.post('/', (req, res, next) => {
     var usuario = new Usuario({
         nombre : body.nombre,
         email: body.email,
-        password: body.password,
+        password: bcrypt.hashSync(body.password, 10),
         img: body.img,
         role: body.role
 
