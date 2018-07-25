@@ -6,7 +6,7 @@ var app = express();
 
 // ruta principal
 app.get('/', (req, res, next) => {
-    res.status(200).json({ ok: true, mensje: 'Petición realizada con ´´exito' });
+    res.status(200).json({ ok: true, mensje: 'Petición realizada con éxito' });
 });
 
 module.exports = app;

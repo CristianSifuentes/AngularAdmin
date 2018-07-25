@@ -4,6 +4,8 @@ var mongoose = require('mongoose');
 
 //inicializar variables
 var app = express();
+
+//importar rutas
 var appRoutes = require('./routes/app');
 var usuarioRoutes = require('./routes/usuario');
 
