@@ -70,6 +70,7 @@ app.put('/:id', (req, res, next) => {
                });
             }
 
+            usuarioGuardado.password = ':)';
             res.status(200).json({ ok: true, usuario: usuarioGuardado });
 
         });
