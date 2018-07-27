@@ -2,7 +2,7 @@ var express = require('express');
 var bcrypt = require('bcryptjs');
 var app = express();
 var Usuario = require('../models/usuario');
-
+var jwt = require('jsonwebtoken');
 
 app.post('/', (req, res) => {
     var body = req.body;
@@ -33,10 +33,11 @@ app.post('/', (req, res) => {
             });
         }
 
-        // Crear un token
+        usuarioDb.password = "=)";
+        // Crear un token     //payload            
+        var token = jwt.sign({ usuario: usuarioDb}, 'este-es-un-seed-dificil', { expiresIn: 14400 })
 
-
-        res.status(200).json({ ok: true, usuario: usuarioDb, id: usuarioDb.id });
+        res.status(200).json({ ok: true, usuario: usuarioDb, token: token, id: usuarioDb.id });
 
     });
 });
