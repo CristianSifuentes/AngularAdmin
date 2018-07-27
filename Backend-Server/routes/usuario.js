@@ -1,13 +1,9 @@
 //Requires
 var express = require('express');
 var bcrypt = require('bcryptjs');
-var jwt = require('jsonwebtoken');
-var SEED = require('../config/config').SEED;
-
-//inicializar variables
 var app = express();
-
 var Usuario = require('../models/usuario');
+var mdAutenticacion = require('../middlewares/autenticacion')
 
 // =============================================
 // Obtener todos los usuarios
@@ -32,27 +28,9 @@ app.get('/', (req, res, next) => {
 
 
 // =============================================
-// Verificar token
-// =============================================
-app.use('/', (req, res, next) => {
-
-    var token  = req.query.token;
-    jwt.verify(token, SEED, (err, decoded) => {
-        if(err){
-            return res.status(401).json({ 
-                    ok: false, 
-                    mensje: 'Token incorrecto', 
-                    errors: err 
-           });
-        }
-    });
-
-});
-
-// =============================================
 // Actualizar un nuevo usuario
 // =============================================
-app.put('/:id', (req, res, next) => {
+app.put('/:id',  mdAutenticacion.verificaToken, (req, res, next) => {
   
   var id = req.params.id;
   var body = req.body;
@@ -102,7 +80,7 @@ app.put('/:id', (req, res, next) => {
 // =============================================
 // Crear un nuevo usuario
 // =============================================
-app.post('/', (req, res, next) => {
+app.post('/',  mdAutenticacion.verificaToken ,  (req, res, next) => {
    
     var body = req.body;
 
@@ -126,7 +104,7 @@ app.post('/', (req, res, next) => {
             );
         }
 
-        res.status(201).json({ ok: true, usuario: usuarioGuardado });
+        res.status(201).json({ ok: true, usuario: usuarioGuardado, usuarioToken : req.usuario });
     });
 
 });
@@ -136,7 +114,7 @@ app.post('/', (req, res, next) => {
 // =============================================
 // Eliminar un nuevo usuario
 // =============================================
-app.delete('/:id', (req, res, next) => {
+app.delete('/:id',  mdAutenticacion.verificaToken, (req, res, next) => {
    
     var id = req.params.id;
 
