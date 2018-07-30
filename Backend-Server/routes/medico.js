@@ -9,7 +9,7 @@ var mdAutenticacion = require('../middlewares/autenticacion')
 // =============================================
 app.get('/', (req, res, next) => {
    
-     Medico.find({}, 'nombre img')
+     Medico.find({})
          .exec(    
                 (err, Medicos) => {
                 if(err){
@@ -83,14 +83,13 @@ app.post('/',  mdAutenticacion.verificaToken ,  (req, res, next) => {
    
     var body = req.body;
     //nombre, img, usuario, hospital
-    var Medico = new Medico({
+    var medico = new Medico({
         nombre : body.nombre,
-        img: body.img,
-        usuario: usuario, 
-        hospital: hospital
+        usuario: req.usuario._id, 
+        hospital: body.hospital
     });
 
-    Medico.save((err, MedicoGuardado) => {
+    medico.save((err, MedicoGuardado) => {
         if(err){
             res.status(400).json(
                 { 
@@ -103,6 +102,8 @@ app.post('/',  mdAutenticacion.verificaToken ,  (req, res, next) => {
 
         res.status(201).json({ ok: true, Medico: MedicoGuardado, MedicoToken : req.Medico });
     });
+
+
 
 });
 
