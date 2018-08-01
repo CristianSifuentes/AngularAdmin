@@ -9,7 +9,7 @@ var mdAutenticacion = require('../middlewares/autenticacion')
 // =============================================
 app.get('/', (req, res, next) => {
    
-     Hospital.find({})
+     Hospital.find({}).populate('usuario', 'nombre email')
          .exec(    
                 (err, Hospitales) => {
                 if(err){
