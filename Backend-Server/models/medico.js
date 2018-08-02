@@ -7,3 +7,4 @@ var medicoSchema =	new Schema({
 				hospital: {	type: Schema.Types.ObjectId,	ref: 'Hospital',	required: [true,	'El	id hospital	es un campo obligatorio']	}
 });
 module.exports = mongoose.model('Medico', medicoSchema);
+
