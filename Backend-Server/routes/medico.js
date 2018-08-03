@@ -13,8 +13,8 @@ app.get('/', (req, res, next) => {
     desde = Number(desde);
    
      Medico.find({})
-        .skip(desde)
-        .limit(5)
+         .skip(desde)
+         .limit(5)
          .populate('usuario', 'nombre email')
          .populate('hospital')
          .exec(    
