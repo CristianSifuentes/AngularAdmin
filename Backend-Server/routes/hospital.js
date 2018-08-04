@@ -26,7 +26,7 @@ app.get('/', (req, res, next) => {
                         }
                     );
                 }
-                Medico.count({ }, (err, conteo) =>{
+                Hospital.count({ }, (err, conteo) =>{
                     res.status(200).json({ ok: true, Hospitales: Hospitales, total:  conteo});
                 });
      });
