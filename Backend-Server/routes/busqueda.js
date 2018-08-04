@@ -6,15 +6,21 @@ var app = express();
 
 //modelos
 var Hospital = require('../models/hospital')
-var Medicos = require('../models/medico');
+var Medico = require('../models/medico');
 // ruta principal
 app.get('/todo/:busqueda', (req, res, next) => {
     var busqueda = req.params.busqueda;
     var regex = new RegExp(busqueda, 'i');
-
-    buscarHospitales(busqueda, regex) 
-        .then(hospitales => {
-            res.status(200).json({ ok: true, hospitales: hospitales });
+    
+    Promise.all( [ 
+        buscarHospitales(busqueda, regex),
+        buscarMedicos(busqueda, regex) ])
+        .then(respuestas => {
+            res.status(200).json({
+                 ok: true, 
+                 hospitales: respuestas[0],
+                 medicos: respuestas[1]
+             });
 
         });
 
@@ -30,6 +36,23 @@ function buscarHospitales(busqueda, regex){
                 reject('Error al cargar hospitales', err);
             }else{
                 resolve(hospitales);
+            }
+         });
+
+    });
+    
+}
+
+
+function buscarMedicos(busqueda, regex){
+   
+    return new Promise((resolve, reject) =>{
+
+        Medico.find({nombre : regex}, (err, medicos) => {
+            if(err){
+                reject('Error al cargar medicos ', err);
+            }else{
+                resolve(medicos);
             }
          });
 
