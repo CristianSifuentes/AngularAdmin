@@ -11,7 +11,28 @@ app.use(fileUpload());
 
 
 // ruta principal
-app.put('/', (req, res, next) => {
+app.put('/:tipo/:id', (req, res, next) => {
+   
+   
+    var tipo = req.params.tipo;
+    var id = req.params.id;
+
+   //tipos de coleccion 
+   var tiposValidos = ['hospitales', 'medicos', 'usuarios'];
+   if(tiposValidos.indexOf(tipo) < 0){
+            return res.status(400).json(
+                { 
+                    ok: false, 
+                    mensje: 'Tipo de colección no es válida', 
+                    errors: { message: 'Tipo de colección no es válida' } 
+                }
+            );
+    }
+
+
+
+
+   
     if(!req.files){
         return res.status(400).json(
             { 
@@ -37,52 +58,42 @@ app.put('/', (req, res, next) => {
                 errors: { message: 'Las extensiones válidas son '  + extensionesValidas.join(', ') } 
             }
         );
-   }else{
-
    }
 
+
+   //Nombre archivo
+   var nombreArchivo = `${ id }-${ new Date().getMilliseconds() }.${ extencionArchivo }`;
+
+   //Mover el archivo del temporal a un path
+   var path = `./uploads/${ tipo }/${ nombreArchivo }`;
+
+   archivo.mv(path, err => {
+       if(err){
+            return res.status(400).json(
+                { 
+                    ok: false, 
+                    mensje: 'Error al mover archovo', 
+                    errors: err       
+                
+                }
+            );
+       }
+
+   });
+
     res.status(200).json(
-        { 
+    { 
             ok: true, 
             mensje: 'Petición realizada correctamente',
             extencion: extencionArchivo 
-        }
-    );});
-
-
-app.put('/', function(req, res) {
-    
-    if(!req.files){
-        res.status(400).json(
-            { 
-                ok: false, 
-                mensje: 'No seleccionó nada', 
-                errors: { message: 'Debe seleccionar una imagen' } 
-            }
-        );
     }
-
-    res.status(200).json(
-        { 
-            ok: true, 
-            mensje: 'Petición realizada correctamente' 
-        }
     );
-    
-    /*if (!req.files)
-      return res.status(400).send('No files were uploaded.');
-   
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-    let sampleFile = req.files.sampleFile;
-   
-    // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv('/somewhere/on/your/server/filename.jpg', function(err) {
-      if (err)
-        return res.status(500).send(err);
-   
-      res.send('File uploaded!');
-    });*/
-  });
+
+
+});
+
+
+
 
 
 
