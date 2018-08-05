@@ -9,7 +9,17 @@ var Hospital = require('../models/hospital')
 var Medico = require('../models/medico');
 var Usuario = require('../models/usuario');
 
-// ruta principal
+// =============================================
+// Búsqueda por colección
+// =============================================
+app.get('/coleccion/:tabla/:busqueda', (req, res)=> {
+
+});
+
+
+// =============================================
+// Búsqueda general
+// =============================================
 app.get('/todo/:busqueda', (req, res, next) => {
     var busqueda = req.params.busqueda;
     var regex = new RegExp(busqueda, 'i');
