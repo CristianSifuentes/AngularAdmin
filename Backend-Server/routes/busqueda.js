@@ -13,6 +13,35 @@ var Usuario = require('../models/usuario');
 // Búsqueda por colección
 // =============================================
 app.get('/coleccion/:tabla/:busqueda', (req, res)=> {
+    var busqueda = req.params.busqueda;
+    var tabla = req.params.tabla;
+    var regex = new RegExp(busqueda, 'i');
+
+    var promesa;
+    switch(tabla){
+        case 'usuarios':
+        promesa = buscarUsuarios(busqueda, regex);
+        break;
+        case 'medicos':
+        promesa = buscarMedicos(busqueda, regex);
+        break;
+        case 'hospitales':
+        promesa = buscarHospitales(busqueda, regex);
+        break;
+        default:
+        return  res.status(400).json({
+                ok: false, 
+                mensaje: 'Los tipos de búsqueda solo son usuarios, medicos y hospitales',
+                error: { message: 'Tipos de tabla/colección no válido' }});
+
+    }
+
+    promesa.then(data => {
+        res.status(400).json({
+            ok: false, 
+            [tabla]: data});
+    });
+
 
 });
 
