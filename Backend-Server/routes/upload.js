@@ -1,10 +1,13 @@
 //Requires
 var express = require('express');
 var fileUpload = require('express-fileupload');
-
+var fs = require('fs');
 //inicializar variables
 var app = express();
 
+var Usuario = require('../models/usuario');
+var Medico = require('../models/medico');
+var Hospital = require('../models/hospital');
 
 // default options
 app.use(fileUpload());
@@ -81,19 +84,51 @@ app.put('/:tipo/:id', (req, res, next) => {
 
    });
 
-    res.status(200).json(
-    { 
-            ok: true, 
-            mensje: 'Petición realizada correctamente',
-            extencion: extencionArchivo 
-    }
-    );
+   subirPorTipo(tipo, id, nombreArchivo, res);
+
 
 
 });
 
 
 
+
+function subirPorTipo(tipo, id, nombreArchivo, res){
+    if(tipo === 'usuario'){
+       Usuario.findById(id, (err, usuario) => {
+           var pathBefore = './uploads/usuarios/' + usuario.img;
+        
+           //Si existe elimina la imagen anterior
+           if(fs.existsSync(pathBefore)){
+               fs.unlink(pathBefore);
+           }
+
+           usuario.img = nombreArchivo;
+           usuario.save((err, usuarioActualizado) => {
+
+                    if(err){
+                        return  res.status(500).json({ 
+                                    ok: false, 
+                                    mensje: 'Imagen de usuario no se ha podido actualizar'                    
+                                });
+                    }
+
+                    return  res.status(200).json({ 
+                            ok: true, 
+                            mensje: 'Imagen de usuario actualizada',
+                            usuario: usuarioActualizado 
+                    });
+           });
+       
+        });
+    }
+    if(tipo === 'medicos'){
+       
+    }
+    if(tipo === 'hospitales'){
+        
+    }
+}
 
 
 
