@@ -94,8 +94,20 @@ app.put('/:tipo/:id', (req, res, next) => {
 
 
 function subirPorTipo(tipo, id, nombreArchivo, res){
+
     if(tipo === 'usuario'){
+
        Usuario.findById(id, (err, usuario) => {
+
+
+        if(!usuario){
+            return  res.status(400).json({ 
+                ok: false, 
+                mensje: 'El usuario no existe'                    
+            });
+        }
+
+
            var pathBefore = './uploads/usuarios/' + usuario.img;
         
            //Si existe elimina la imagen anterior
@@ -112,7 +124,7 @@ function subirPorTipo(tipo, id, nombreArchivo, res){
                                     mensje: 'Imagen de usuario no se ha podido actualizar'                    
                                 });
                     }
-
+                    usuarioActualizado.password = '=)';
                     return  res.status(200).json({ 
                             ok: true, 
                             mensje: 'Imagen de usuario actualizada',
@@ -123,10 +135,82 @@ function subirPorTipo(tipo, id, nombreArchivo, res){
         });
     }
     if(tipo === 'medicos'){
+
+           Medico.findById(id, (err, medico) => {
+
+
+            if(!medico){
+                return  res.status(400).json({ 
+                    ok: false, 
+                    mensje: 'El medico no existe'                    
+                });
+            }
+    
+
+
+           var pathBefore = './uploads/medicos/' + medico.img;
+        
+           //Si existe elimina la imagen anterior
+           if(fs.existsSync(pathBefore)){
+               fs.unlink(pathBefore);
+           }
+
+           medico.img = nombreArchivo;
+           medico.save((err, medicoActualizado) => {
+
+                    if(err){
+                        return  res.status(500).json({ 
+                                    ok: false, 
+                                    mensje: 'Imagen de medico no se ha podido actualizar'                    
+                                });
+                    }
+
+                    return  res.status(200).json({ 
+                            ok: true, 
+                            mensje: 'Imagen de medico actualizada',
+                            usuario: medicoActualizado 
+                    });
+           });
        
+        });
     }
     if(tipo === 'hospitales'){
         
+        Hospital.findById(id, (err, hospital) => {
+
+            if(!hospital){
+                return  res.status(400).json({ 
+                    ok: false, 
+                    mensje: 'El hospital no existe'                    
+                });
+            }
+
+
+            var pathBefore = './uploads/hospitales/' + hospital.img;
+         
+            //Si existe elimina la imagen anterior
+            if(fs.existsSync(pathBefore)){
+                fs.unlink(pathBefore);
+            }
+ 
+            hospital.img = nombreArchivo;
+            hospital.save((err, hospitaloActualizado) => {
+ 
+                     if(err){
+                         return  res.status(500).json({ 
+                                     ok: false, 
+                                     mensje: 'Imagen de hospital no se ha podido actualizar'                    
+                                 });
+                     }
+ 
+                     return  res.status(200).json({ 
+                             ok: true, 
+                             mensje: 'Imagen de hospital actualizada',
+                             usuario: hospitaloActualizado 
+                     });
+            });
+        
+         });
     }
 }
 
