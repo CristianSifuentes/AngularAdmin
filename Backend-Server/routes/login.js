@@ -1,4 +1,4 @@
-import { async } from '@angular/core/testing';
+
 var express = require('express');
 var bcrypt = require('bcryptjs');
 var app = express();
@@ -10,7 +10,6 @@ var SEED = require('../config/config').SEED;
 var CLIENT_ID = require('../config/config').CLIENT_ID;
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client(CLIENT_ID);
-
 
 
 //=============================================0
@@ -34,9 +33,13 @@ async function verify(token) {
         nombre: payload.name,
         email: payload.email,
         img: payload.picture,
-        google: true
+        google: true,
+        payload 
     }
-  }
+
+}
+
+
 
 app.post('/google', async (req, res) =>{
 
@@ -49,10 +52,55 @@ app.post('/google', async (req, res) =>{
          });
     });
 
-    return res.status(200).json({ 
-        ok: true, 
-        mensje: 'ok!!',
-        googleUser : googleUser
+
+    Usuario.findOne({email: googleUser.email}, (err, usuarioDB) => {
+
+
+        if(err){
+            return res.status(500).json({ 
+                    ok: false, 
+                    mensje: 'Error obtener el usuario', 
+                    errors: err 
+           });
+        }
+        
+        if(usuarioDB) {
+
+            if(usuarioDB.google === false) {
+                return res.status(400).json({ 
+                    ok: false, 
+                    mensje: 'Debe hacer su autenticación normal'
+              });
+            } else {
+                var token = jwt.sign({ usuario: usuarioDb}, SEED, { expiresIn: 14400 })
+                res.status(200).json({ ok: true, usuario: usuarioDb, token: token, id: usuarioDb.id });
+            }
+        }
+        else {
+           //El usuario no existe hay que crearlo
+           var usuario = new Usuario();
+           usuario.email = googleUser.email;
+           usuario.nombre = googleUser.nombre;
+           usuario.img = googleUser.img;
+           usuario.google = true;
+           usuario.password = '=)';
+
+           usuario.save((err, usuario) => {
+
+                    if(err){
+                        return res.status(500).json({ 
+                                ok: false, 
+                                mensje: 'Error insertar el usuario desde google', 
+                                errors: err 
+                        });
+                    }
+
+                    var token = jwt.sign({ usuario: usuario}, SEED, { expiresIn: 14400 })
+                    res.status(200).json({ ok: true, usuario: usuario, token: token, id: usuario.id });
+           });
+
+        }   
+
     });
 });
 
