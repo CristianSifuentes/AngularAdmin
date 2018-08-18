@@ -20,7 +20,15 @@ export class UsuarioService {
 
 
   loginUsuario(usuario: Usuario, recordar: boolean = false){
-     let url = URL_SERVICIOS + '/login';
+     
+    if(recordar){
+      localStorage.setItem('email', usuario.email);
+    }else{
+      localStorage.removeItem('email');
+    }
+    
+    
+    let url = URL_SERVICIOS + '/login';
      return this.http.post(url, usuario ).map((resp: any) => {
         localStorage.setItem('id', resp.id);
         localStorage.setItem('token', resp.token);
