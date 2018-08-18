@@ -21,7 +21,12 @@ export class UsuarioService {
 
   loginUsuario(usuario: Usuario, recordar: boolean = false){
      let url = URL_SERVICIOS + '/login';
-     return this.http.post(url, usuario );
+     return this.http.post(url, usuario ).map((resp: any) => {
+        localStorage.setItem('id', resp.id);
+        localStorage.setItem('token', resp.token);
+        localStorage.setItem('usuario', JSON.stringify(resp.usuario));
+        return true;
+     });
   }
 
 
