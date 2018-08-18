@@ -12,3 +12,11 @@ ng g m services/service --spec=false
 # Ayuda mongod
 
 https://www.youtube.com/watch?v=2KMQdqDk9e8
+
+# Información de cors
+
+https://enable-cors.org/
+
+# Error en operación map
+
+npm install rxjs@6 rxjs-compat@6 --save

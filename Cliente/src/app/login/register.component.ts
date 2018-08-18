@@ -3,6 +3,7 @@ import { UsuarioService } from '../services/services.index';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import swal from 'sweetalert';
+import { Router } from '@angular/router';
 
 declare function init_plugins(); 
 
@@ -18,7 +19,8 @@ export class RegisterComponent implements OnInit {
   forma: FormGroup
 
   constructor(
-    public _usuarioService: UsuarioService
+    public _usuarioService: UsuarioService,
+    public _router: Router
   ) { 
 
   }
@@ -83,9 +85,8 @@ export class RegisterComponent implements OnInit {
       this.forma.value.password,
     );
 
-    this._usuarioService.crearUsuario(usuario).subscribe(resp => {
-        console.log(resp);
-    });
+    this._usuarioService.crearUsuario(usuario)
+       .subscribe(resp => this._router.navigate(['/login']));
   }
 
 }

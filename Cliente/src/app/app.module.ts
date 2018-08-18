@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
+import 'rxjs';
 
 //Rutas
 import { APP_ROUTES } from './app.routes';
