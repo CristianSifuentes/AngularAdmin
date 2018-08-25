@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 import {
-SettingService, SharedService, SidebarService, UsuarioService
+SettingService, SharedService, SidebarService, UsuarioService, LoginGuardGuard
 } from './services.index';
 
 @NgModule({
@@ -12,7 +12,7 @@ SettingService, SharedService, SidebarService, UsuarioService
     CommonModule, HttpClientModule
   ],
   providers: [
-    SettingService,SharedService,SidebarService, UsuarioService
+    SettingService,SharedService,SidebarService, UsuarioService, LoginGuardGuard
   ],
   declarations: []
 })
