@@ -10,6 +10,9 @@ import 'rxjs/add/operator/filter';
   providedIn: 'root'
 })
 export class UsuarioService {
+  
+  usuario: Usuario;
+  token: string;
 
   constructor(
     public http: HttpClient
@@ -18,6 +21,24 @@ export class UsuarioService {
 
   }
 
+  guardarStorage(id: string, token: string, usuario: Usuario){
+      localStorage.setItem('id', id);
+      localStorage.setItem('token', token);
+      localStorage.setItem('usuario', JSON.stringify(usuario));
+
+      this.usuario = usuario;
+      this.token = token;
+  }
+
+  loginGoogle(token: string){
+    let url = URL_SERVICIOS + "/login/google";
+
+    return this.http.post(url, { token })
+         .map( (resp: any) => {
+           this.guardarStorage(resp.id, resp.token, resp.usuario);
+           return true;
+         });
+  }
 
   loginUsuario(usuario: Usuario, recordar: boolean = false){
      
@@ -30,9 +51,7 @@ export class UsuarioService {
     
     let url = URL_SERVICIOS + '/login';
      return this.http.post(url, usuario ).map((resp: any) => {
-        localStorage.setItem('id', resp.id);
-        localStorage.setItem('token', resp.token);
-        localStorage.setItem('usuario', JSON.stringify(resp.usuario));
+             this.guardarStorage(resp.id, resp.token, resp.usuario);
         return true;
      });
   }

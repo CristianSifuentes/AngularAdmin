@@ -48,12 +48,14 @@ export class LoginComponent implements OnInit {
 
   attackSignin(element){
     this.auth2.attachClickHandler(element, {}, (googleUser) => {
-        //let profile = googleUser.getBasicProfile();
-        //console.log(profile);
 
         let token = googleUser.getAuthResponse().id_token;
-        console.log(token);
+
+        this._usuarioService.loginGoogle(token).
+          subscribe(() => window.location.href = "#/dashboard");
+
     });
+    
   }
 
   ingresar(forma: NgForm){
