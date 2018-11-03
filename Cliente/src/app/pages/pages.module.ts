@@ -9,6 +9,11 @@ import { SharedModule } from "../shared/shared.module";
 
 import { PAGES_ROUTES } from "./pages.routes";
 
+
+import { PipesModule } from './../pipes/pipes.module';
+
+
+
 //temporal
 import { IncrementadorComponent } from "../components/incrementador/incrementador.component";
 import { GraficoDonaComponent } from "../components/grafico-dona/grafico-dona.component";
@@ -42,7 +47,8 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     SharedModule,
     PAGES_ROUTES,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    PipesModule
    ]
 })
 export class PagesModule {}
